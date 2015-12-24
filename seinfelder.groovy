@@ -1,4 +1,5 @@
-einfelder
+/**
+ *  Seinfelder
  *
  *  Copyright 2015 Austin Fonacier
  *
@@ -45,12 +46,10 @@ def updated() {
 }
 
 def initialize() {
-	// TODO: subscribe to attributes, devices, locations, etc.
-    subscribe(door, "contact.open", playTrack)
+    subscribe(door, "contact.open", doorOpenHandler)
 }
 
-def playTrack() {
-	sound = [uri: "http://s3-us-west-2.amazonaws.com/blog-spokeo-test/seinfeld.mp3", duration: "3"]
-    sonos.playTrackAndRestore(sound.uri, sound.duration, volume)
+def doorOpenHandler(evt) {
+	log.info("DOOR OPEN HANDLER ${evt}")
+  sonos.playTrack("http://s3-us-west-2.amazonaws.com/blog-spokeo-test/seinfeld.mp3")
 }
-
